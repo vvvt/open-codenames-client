@@ -30,11 +30,15 @@ class CardMatrix extends Component {
     handleClick = word => {
         const socket = this.context;
         const gameData = [...this.state.gameData];
+        let turnedCard;
         gameData.forEach(row => {
             const target = row.find(entry => entry.word === word);
-            if (target) target.turned = true;
+            if (target && !target.turned) {
+                target.turned = true;
+                turnedCard = target;
+            }
         });
-        socket.emit('turn', gameData);
+        if (turnedCard) socket.emit('turn', gameData);
     };
 
     render() {
