@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './card';
 
-const GameBoard = ({ gameData, onClick }) => {
+const GameBoard = ({ gameData, isLeader, onClick }) => {
     return (
         <main className='card-container'>
             {gameData &&
@@ -13,7 +13,7 @@ const GameBoard = ({ gameData, onClick }) => {
                                 key={`${i}-${j}`}
                                 color={color}
                                 word={word}
-                                turned={turned}
+                                turned={turned || isLeader}
                                 onClick={onClick}
                             />
                         );

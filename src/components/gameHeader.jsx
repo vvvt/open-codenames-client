@@ -1,10 +1,20 @@
 import React from 'react';
+import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
 
-const GameHeader = ({ room }) => {
+const GameHeader = ({ room, onClick, isLeader }) => {
     return (
         <header>
-            <span className='badge bg-light text-dark'>{`Raum: ${room}`}</span>
-            <button className='btn btn-primary'>Spielleiter</button>
+            <span className='room-indicator badge bg-light text-dark'>{`Raum: ${room}`}</span>
+
+            {isLeader ? (
+                <button className='btn btn-outline-primary' onClick={onClick}>
+                    <EyeSlashFill size={24} />
+                </button>
+            ) : (
+                <button className='btn btn-primary' onClick={onClick}>
+                    <EyeFill size={24} />
+                </button>
+            )}
         </header>
     );
 };

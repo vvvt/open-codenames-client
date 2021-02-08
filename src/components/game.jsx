@@ -8,6 +8,7 @@ class Game extends Component {
 
     state = {
         gameData: '',
+        isLeader: false,
     };
 
     componentDidMount() {
@@ -27,9 +28,12 @@ class Game extends Component {
         });
     }
 
-    /* handleReveal = () => {}; */
+    handleReveal = () => {
+        this.setState({ isLeader: !this.state.isLeader });
+    };
 
     handleTurn = word => {
+        if (this.state.isLeader) return;
         const socket = this.context;
         const gameData = [...this.state.gameData];
         let turnedCard;
@@ -45,14 +49,19 @@ class Game extends Component {
 
     render() {
         const { room } = this.props.match.params;
-        const { gameData } = this.state;
+        const { gameData, isLeader } = this.state;
 
         return (
             <div className='game-container'>
-                <GameHeader room={room} />
+                <GameHeader
+                    room={room}
+                    isLeader={isLeader}
+                    onClick={this.handleReveal}
+                />
                 <GameBoard
                     room={room}
                     gameData={gameData}
+                    isLeader={isLeader}
                     onClick={this.handleTurn}
                 />
             </div>
