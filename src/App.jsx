@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import GameBoard from './components/gameBoard';
+import Game from './components/game';
 import EnterForm from './components/enterForm';
 import { SocketContext, socket } from './context/socket';
 
@@ -10,7 +10,7 @@ const App = () => {
     return (
         <SocketContext.Provider value={socket}>
             <Switch>
-                <Route path='/game/:room' component={GameBoard}></Route>
+                <Route path='/game/:room' component={Game}></Route>
                 <Route path='/' exact component={EnterForm}></Route>
                 <Redirect to='/' />
             </Switch>

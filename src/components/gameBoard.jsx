@@ -1,18 +1,26 @@
-import React, { Component } from 'react';
-import CardMatrix from './cardMatrix';
-import GameHeader from './gameHeader';
+import React from 'react';
+import Card from './card';
 
-class GameBoard extends Component {
-    render() {
-        const { room } = this.props.match.params;
-
-        return (
-            <div className='game-container'>
-                <GameHeader room={room} />
-                <CardMatrix room={room} />
-            </div>
-        );
-    }
-}
+const GameBoard = ({ gameData, onClick }) => {
+    return (
+        <main className='card-container'>
+            {gameData &&
+                gameData.map((row, i) => {
+                    return row.map((entry, j) => {
+                        const { color, word, turned } = entry;
+                        return (
+                            <Card
+                                key={`${i}-${j}`}
+                                color={color}
+                                word={word}
+                                turned={turned}
+                                onClick={onClick}
+                            />
+                        );
+                    });
+                })}
+        </main>
+    );
+};
 
 export default GameBoard;

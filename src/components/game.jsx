@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Card from './card';
+import GameBoard from './gameBoard';
+import GameHeader from './gameHeader';
 import { SocketContext } from '../context/socket';
 
-class CardMatrix extends Component {
+class Game extends Component {
     static contextType = SocketContext;
 
     state = {
@@ -11,8 +12,9 @@ class CardMatrix extends Component {
 
     componentDidMount() {
         const socket = this.context;
+        const { room } = this.props.match.params;
 
-        socket.emit('join', this.props.room);
+        socket.emit('join', room);
 
         this.context.emit('data', 'data', async currentGameData => {
             const gameData = await currentGameData.data;
@@ -21,13 +23,13 @@ class CardMatrix extends Component {
 
         socket.on('turn', currentGameData => {
             const gameData = currentGameData;
-            console.log(gameData);
-            console.log('Got turned data from Server');
             this.setState({ gameData });
         });
     }
 
-    handleClick = word => {
+    /* handleReveal = () => {}; */
+
+    handleTurn = word => {
         const socket = this.context;
         const gameData = [...this.state.gameData];
         let turnedCard;
@@ -42,28 +44,20 @@ class CardMatrix extends Component {
     };
 
     render() {
+        const { room } = this.props.match.params;
         const { gameData } = this.state;
 
         return (
-            <main className='card-container'>
-                {gameData &&
-                    gameData.map((row, i) => {
-                        return row.map((entry, j) => {
-                            const { color, word, turned } = entry;
-                            return (
-                                <Card
-                                    key={`${i}-${j}`}
-                                    color={color}
-                                    word={word}
-                                    turned={turned}
-                                    onClick={this.handleClick}
-                                />
-                            );
-                        });
-                    })}
-            </main>
+            <div className='game-container'>
+                <GameHeader room={room} />
+                <GameBoard
+                    room={room}
+                    gameData={gameData}
+                    onClick={this.handleTurn}
+                />
+            </div>
         );
     }
 }
 
-export default CardMatrix;
+export default Game;
