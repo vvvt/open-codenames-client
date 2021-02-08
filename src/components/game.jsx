@@ -8,6 +8,8 @@ class Game extends Component {
 
     state = {
         gameData: '',
+        redCount: 0,
+        blueCount: 0,
         isLeader: false,
     };
 
@@ -19,12 +21,28 @@ class Game extends Component {
 
         this.context.emit('data', 'data', async currentGameData => {
             const gameData = await currentGameData.data;
-            this.setState({ gameData });
+            const redCount = gameData
+                .flat()
+                .filter(
+                    word => word.color === '#ff736c' && word.turned === false
+                ).length;
+            const blueCount = gameData
+                .flat()
+                .filter(
+                    word => word.color === '#6cbbff' && word.turned === false
+                ).length;
+            this.setState({ gameData, redCount, blueCount });
         });
 
         socket.on('turn', currentGameData => {
             const gameData = currentGameData;
-            this.setState({ gameData });
+            const redCount = gameData
+                .flat()
+                .filter(word => word.color === '#ff736c').length;
+            const blueCount = gameData
+                .flat()
+                .filter(word => word.color === '#6cbbff').length;
+            this.setState({ gameData, redCount, blueCount });
         });
     }
 
@@ -49,12 +67,14 @@ class Game extends Component {
 
     render() {
         const { room } = this.props.match.params;
-        const { gameData, isLeader } = this.state;
+        const { gameData, isLeader, redCount, blueCount } = this.state;
 
         return (
             <div className='game-container'>
                 <GameHeader
                     room={room}
+                    redCount={redCount}
+                    blueCount={blueCount}
                     isLeader={isLeader}
                     onClick={this.handleReveal}
                 />
