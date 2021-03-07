@@ -4,8 +4,6 @@ import Game from './components/game';
 import EnterForm from './components/enterForm';
 import { SocketContext, socket } from './context/socket';
 
-import './App.css';
-
 const App = () => {
     return (
         <SocketContext.Provider value={socket}>

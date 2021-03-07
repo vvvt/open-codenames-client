@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
+import styled from '@emotion/styled';
 import GameBoard from './gameBoard';
 import GameHeader from './gameHeader';
 import { SocketContext } from '../context/socket';
+
+const GameContainer = styled('div')`
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    background-color: #2d2d2d;
+`;
 
 class Game extends Component {
     static contextType = SocketContext;
@@ -71,7 +80,7 @@ class Game extends Component {
         const { gameData, isLeader, redCount, blueCount } = this.state;
 
         return (
-            <div className='game-container'>
+            <GameContainer className='game-container'>
                 <GameHeader
                     room={room}
                     redCount={redCount}
@@ -85,7 +94,7 @@ class Game extends Component {
                     isLeader={isLeader}
                     onClick={this.handleTurn}
                 />
-            </div>
+            </GameContainer>
         );
     }
 }
