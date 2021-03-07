@@ -38,10 +38,14 @@ class Game extends Component {
             const gameData = currentGameData;
             const redCount = gameData
                 .flat()
-                .filter(word => word.color === '#ff736c').length;
+                .filter(
+                    word => word.color === '#ff736c' && word.turned === false
+                ).length;
             const blueCount = gameData
                 .flat()
-                .filter(word => word.color === '#6cbbff').length;
+                .filter(
+                    word => word.color === '#6cbbff' && word.turned === false
+                ).length;
             this.setState({ gameData, redCount, blueCount });
         });
     }
