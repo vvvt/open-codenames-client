@@ -21,16 +21,15 @@ class Game extends Component {
 
         this.context.emit('data', 'data', async currentGameData => {
             const gameData = await currentGameData.data;
+            console.log(gameData);
             const redCount = gameData
                 .flat()
-                .filter(
-                    word => word.color === '#ff736c' && word.turned === false
-                ).length;
+                .filter(word => word.type === 'red' && word.turned === false)
+                .length;
             const blueCount = gameData
                 .flat()
-                .filter(
-                    word => word.color === '#6cbbff' && word.turned === false
-                ).length;
+                .filter(word => word.type === 'blue' && word.turned === false)
+                .length;
             this.setState({ gameData, redCount, blueCount });
         });
 
@@ -38,14 +37,12 @@ class Game extends Component {
             const gameData = currentGameData;
             const redCount = gameData
                 .flat()
-                .filter(
-                    word => word.color === '#ff736c' && word.turned === false
-                ).length;
+                .filter(word => word.type === 'red' && word.turned === false)
+                .length;
             const blueCount = gameData
                 .flat()
-                .filter(
-                    word => word.color === '#6cbbff' && word.turned === false
-                ).length;
+                .filter(word => word.type === 'blue' && word.turned === false)
+                .length;
             this.setState({ gameData, redCount, blueCount });
         });
     }

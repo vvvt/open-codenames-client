@@ -1,15 +1,15 @@
 import React from 'react';
+import colors from '../style/colors';
 
 class Card extends React.Component {
     render() {
-        const { color, word, turned, onClick } = this.props;
+        const { type, word, turned, onClick } = this.props;
 
         return (
             <div
                 className='card'
                 style={{
-                    backgroundColor: turned ? color : 'white',
-                    color: turned && color === '#2d2d2d' ? 'white' : 'black',
+                    background: turned ? colors[type] : 'rgba(255,255,255,0.2)',
                 }}
                 onClick={() => onClick(word)}
             >

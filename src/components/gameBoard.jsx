@@ -7,11 +7,11 @@ const GameBoard = ({ gameData, isLeader, onClick }) => {
             {gameData &&
                 gameData.map((row, i) => {
                     return row.map((entry, j) => {
-                        const { color, word, turned } = entry;
+                        const { type, word, turned } = entry;
                         return (
                             <Card
                                 key={`${i}-${j}`}
-                                color={color}
+                                type={type}
                                 word={word}
                                 turned={turned || isLeader}
                                 onClick={onClick}
