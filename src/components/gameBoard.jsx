@@ -12,6 +12,7 @@ const CardGrid = styled('main')`
     padding: 1vw;
     padding-bottom: 1vw;
     box-sizing: border-box;
+    z-index: 0;
 `;
 
 const GameBoard = ({ gameData, isLeader, onClick }) => {
@@ -26,7 +27,8 @@ const GameBoard = ({ gameData, isLeader, onClick }) => {
                                 key={`${i}-${j}`}
                                 type={type}
                                 word={word}
-                                turned={turned || isLeader}
+                                isLeader={isLeader}
+                                turned={turned}
                                 onClick={onClick}
                             />
                         );
