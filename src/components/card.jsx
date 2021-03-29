@@ -1,6 +1,7 @@
 import React from 'react';
+import useFitText from 'use-fit-text';
 import styled from '@emotion/styled';
-import { gradients, colors } from '../style/colors';
+import { gradients } from '../style/colors';
 
 const CardBody = styled('div')`
     box-sizing: border-box;
@@ -15,7 +16,23 @@ const CardBody = styled('div')`
     padding: 20px;
 `;
 
-const CardText = styled('span')``;
+function CardText({ children }) {
+    const { fontSize, ref } = useFitText();
+
+    return (
+        <div
+            ref={ref}
+            style={{
+                fontSize,
+                height: 50,
+                width: '100%',
+                textAlign: 'center',
+            }}
+        >
+            {children}
+        </div>
+    );
+}
 
 class Card extends React.Component {
     render() {
@@ -26,7 +43,7 @@ class Card extends React.Component {
                 className='card'
                 style={{
                     background: (turned || isLeader) && gradients[type],
-                    transform: isLeader && turned && 'rotate(0deg) scale(0.8)',
+                    transform: isLeader && turned && 'scale(0.8)',
                     opacity: isLeader && turned && 0.3,
                     border: isLeader && turned && 'none',
                 }}
